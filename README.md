@@ -29,7 +29,7 @@ La nature de toute communication qui a lieu sur le web suit un ensemble de « 
 Les requêtes envoyées par le client sont dirigées vers un emplacement particulier marqué par l'**identificateur uniforme de ressource (URI)**. Une URL de page web est un type d'URI qui identifie l'emplacement d'une ressource :
 
 ```
-http://www.site.com:9001/chemin?parametre1=valeur1$parametre2=valeur2
+http://www.site.com:9001/chemin?parametre1=valeur1&parametre2=valeur2
 ```
 
 Sur cette URL, on retrouve :
@@ -71,7 +71,7 @@ En pratique :
 
 - L'architecture REST est centrée sur les _ressources_
 - Les ressources sont une représentation des données pertinentes au format JSON, XML (plus rarement HTML)
-- En adhérant au format le plus populaire, vous utiliserez *JSON* pour représenter vos objets « étudiant »
+- En adhérant au format le plus populaire, vous utiliserez _JSON_ pour représenter vos objets « étudiant »
 
 ### Le format JSON
 
@@ -90,9 +90,9 @@ JSON (_JavaScript Object Notation_) est un format de données courant où les do
 
 Chaque requête est effectuée sur une URI qui cible une ressource spécifique. Le type de requête détermine l'action effectuée sur la ressource. Par exemple :
 
-  - une requête `GET` sur `/etudiants` récupérerait tous les étudiants ;
-  - une requête `GET` sur `/etudiants/1` récupérerait l'étudiant d'ID 1 ;
-  - une requête `POST` sur `/etudiants` permettrait la création d'un nouvel étudiant.
+- une requête `GET` sur `/etudiants` récupérerait tous les étudiants ;
+- une requête `GET` sur `/etudiants/1` récupérerait l'étudiant d'ID 1 ;
+- une requête `POST` sur `/etudiants` permettrait la création d'un nouvel étudiant.
 
 On voit bien ici l'importance du verbe HTTP : on a deux requêtes qui pointent vers la même URI mais, comme les verbes HTTP associés sont différents, le serveur sait qu'il doit effectuer des actions différentes.
 
@@ -143,25 +143,25 @@ Il est temps de mettre en place le serveur. Comme mentionné précédemment, nou
 Ouvrez `serveur.js` et collez le code suivant :
 
 ```js
-const express = require("express");
+const express = require('express');
 const app = express();
 
 app.listen(3001, () => {
-  console.log("Serveur écoute sur port 3001");
+  console.log('Serveur écoute sur port 3001');
 });
 ```
 
 Analysons le code.
 
-- _ligne 1_ : importe le framework Express.js comme un module JavaScript classique en utilisant la méthode `require`. Cela nous permet d'accéder aux méthodes disponibles dans le framework ;
+- *ligne 1* : importe le framework Express.js comme un module JavaScript classique en utilisant la méthode `require`. Cela nous permet d'accéder aux méthodes disponibles dans le framework ;
 
-- _ligne 2_ : initialisation d'une instance de Express ;
+- *ligne 2* : initialisation d'une instance de Express ;
 
-- _ligne 3_ : `app.listen(PORT, CALLBACK)` démarre un serveur qui écoute les requêtes sur le port `PORT` (dans notre cas, `3001`) et exécute la méthode `CALLBACK` après le démarrage du serveur. Dans notre cas, le code de la méthode est directement indiqué à cet endroit (classique en JS). Cette méthode affiche un message sur la console indiquant que l'application Express.js a démarré et que le serveur est en cours d'exécution.
+- *ligne 3* : `app.listen(PORT, CALLBACK)` démarre un serveur qui écoute les requêtes sur le port `PORT` (dans notre cas, `3001`) et exécute la méthode `CALLBACK` après le démarrage du serveur. Dans notre cas, le code de la méthode est directement indiqué à cet endroit (classique en JS). Cette méthode affiche un message sur la console indiquant que l'application Express.js a démarré et que le serveur est en cours d'exécution.
 
 Pour lancer le serveur, on utilise `node` comme lorsqu'on a lancé le client. Pour pouvoir lancer le serveur et le client en même temps, nous allons utiliser deux terminaux séparés.
 
-- Entrez cette commande dans un _nouveau terminal_ :
+- Entrez cette commande dans un *nouveau terminal* :
 
 ```bash
 node serveur.js
@@ -197,27 +197,27 @@ let compteur = 0; // servira comme compteur d'étudiants
 // Les différents endpoints acceptés par le serveur
 
 // récupérer tous les étudiants
-app.get("/etudiants", (req, res) => {
-  console.log("### récupérer tous les étudiants");
+app.get('/etudiants', (req, res) => {
+  console.log('### récupérer tous les étudiants');
 });
 
 // récupérer un étudiant spécifique
-app.get("/etudiants/:id", (req, res) => {
+app.get('/etudiants/:id', (req, res) => {
   console.log(`### récupérer l'étudiant d'id ${req.params.id}`);
 });
 
 // ajouter un étudiant
-app.post("/etudiants", (req, res) => {
-  console.log("### ajouter un étudiant");
+app.post('/etudiants', (req, res) => {
+  console.log('### ajouter un étudiant');
 });
 
 // modifier un étudiant
-app.put("/etudiants/:id", (req, res) => {
+app.put('/etudiants/:id', (req, res) => {
   console.log(`### modifier l'étudiant d'id ${req.params.id}`);
 });
 
 // supprimer un étudiant
-app.delete("/etudiants/:id", (req, res) => {
+app.delete('/etudiants/:id', (req, res) => {
   console.log(`### supprimer l'étudiant d'id ${req.params.id}`);
 });
 ```
@@ -235,11 +235,11 @@ Le _endpoint_ `/etudiants/:id` contient un paramètre (spécifié par les deux p
 Nous allons maintenant implémenter les routes `GET` qui récupèrent les ressources. Voici ce que nous avons pour l'instant pour nos deux `GET` :
 
 ```js
-app.get("/etudiants", (req, res) => {
-  console.log("### récupérer tous les étudiants");
+app.get('/etudiants', (req, res) => {
+  console.log('### récupérer tous les étudiants');
 });
 
-app.get("/etudiants/:id", (req, res) => {
+app.get('/etudiants/:id', (req, res) => {
   console.log(`### récupérer l'étudiant d'id ${req.params.id}`);
 });
 ```
@@ -260,13 +260,13 @@ Modifiez le code des deux fonctions _callback_ pour qu'il corresponde à ce qui 
 <br>
 
 ```js
-app.get("/etudiants", (req, res) => {
-  console.log("### récupérer tous les étudiants");
-  console.log(etudiants);  // affichage dans la console serveur pour comparaison
+app.get('/etudiants', (req, res) => {
+  console.log('### récupérer tous les étudiants');
+  console.log(etudiants); // affichage dans la console serveur pour comparaison
   res.send(etudiants);
 });
 
-app.get("/etudiants/:id", (req, res) => {
+app.get('/etudiants/:id', (req, res) => {
   console.log(`### récupérer l'étudiant d'id ${req.params.id}`);
   // vérifie si un étudiant avec un id correspondant est trouvé
   const etudiantMatch = etudiants.find(
@@ -274,11 +274,11 @@ app.get("/etudiants/:id", (req, res) => {
   );
   // on renvoie l'étudiant trouvé ou bien un code 400
   if (etudiantMatch) {
-    console.log("étudiant trouvé :");
+    console.log('étudiant trouvé :');
     console.log(etudiantMatch);
     res.send(etudiantMatch);
   } else {
-    console.log("étudiant non trouvé...");
+    console.log('étudiant non trouvé...');
     res.sendStatus(400);
   }
 });
@@ -315,27 +315,22 @@ Un code HTTP indique le statut de la réponse. Il fournit des informations utile
 
 À ce stade, si vous essayez d'envoyer une requête, elle ne sera pas reçue par le serveur (vous pouvez vérifier cela en lançant le client et en envoyant une requête). C'est parce qu'actuellement, le serveur n'accepte pas les requêtes provenant d'autres « origines ». Pour permettre de telles requêtes, vous devrez utiliser une fonctionnalité Express appelée _middleware_.
 
-Actuellement, l'application cliente (port 3000) et le serveur (port 3001) sont hébergés sur des « origines » différentes (définies par la partie URL du protocole, du nom d'hôte et du port). Javascript suit une « _politique d'origine identique_ » qui contrôle les interactions entre différentes origines pour des raisons de sécurité. La politique interdit les requêtes provenant d'autres origines (CORS : _Cross-origin resource sharing_), mais dans certains cas (comme le nôtre), permettre les requêtes CORS est nécessaire. Pour ce faire, le serveur doit être configuré pour les accepter.
+Actuellement, l'application cliente (port 3000) et le serveur (port 3001) sont hébergés sur des « origines » différentes (définies par la partie URL du protocole, du nom d'hôte et du port). Javascript suit une « *politique d'origine identique* » qui contrôle les interactions entre différentes origines pour des raisons de sécurité. La politique interdit les requêtes provenant d'autres origines (CORS : _Cross-origin resource sharing_), mais dans certains cas (comme le nôtre), permettre les requêtes CORS est nécessaire. Pour ce faire, le serveur doit être configuré pour les accepter.
 
 Les _middlewares_ dans Express sont définis comme des méthodes qui ont accès à l'objet-requête, à l'objet-réponse et au _middleware_ suivant dans le cycle de requête/réponse. Une façon de penser au framework Express est comme une série de fonctions (_middlewares_) qui sont exécutées dans l'ordre, où la première exécution est déclenchée par une requête et la dernière exécution envoie une réponse. Les méthodes supplémentaires dans le cycle peuvent exécuter une variété de tâches telles que l'authentification, la journalisation, etc. Dans ce cas, vous ajouterez un _middleware_ qui permet au serveur d'accepter les requêtes provenant d'autres origines.
 
 Les _middlewares_ peuvent être configurés pour s'exécuter pour certains types de requêtes et à des endroits spécifiques du cycle de requête/réponse (par exemple, juste après la réception d'une requête). Ce projet utilise uniquement des _middlewares_ de niveau d'application qui s'exécutent pour chaque requête que l'application reçoit.
 
-Ajoutez ceci avec les autres `require` :
+Ajoutez ceci en dessous de `const app = express();` :
 
 ```js
 // Ajoute le support de CORS
-const cors = require("cors");
-```
-
-Et ceci avec les autres `use` :
-
-```js
+const cors = require('cors');
 // autorise les requêtes CORS
 app.use(cors());
 ```
 
-> Assurez-vous que les `app.use()` sont au-dessus des méthodes de routage car elle doivent être mises en place avant le routage dans le cycle de requête/réponse.
+> Assurez-vous que les `app.use()` sont au-dessus des méthodes de routage (`app.get`, `app.post`...) car elle doivent être mises en place avant le routage dans le cycle de requête/réponse.
 
 Redémarrez le serveur. Accédez à l'application cliente et envoyez une requête `GET`. Vérifiez que vous obtenez un tableau vide avec un statut de succès.
 
@@ -354,8 +349,8 @@ Le _middleware_ ci-dessus analyse les données du corps de la requête entrante 
 Voici la route `POST` actuelle :
 
 ```js
-app.post("/etudiants", (req, res) => {
-  console.log("### ajouter un étudiant");
+app.post('/etudiants', (req, res) => {
+  console.log('### ajouter un étudiant');
 });
 ```
 
@@ -369,13 +364,13 @@ Nous voulons créer un nouvel étudiant avec `id` égal au `compteur` courant, p
 <br>
 
 ```js
-app.post("/etudiants", (req, res) => {
+app.post('/etudiants', (req, res) => {
   console.log("### ajout d'un étudiant");
   // la syntaxe "..." permet de copier toutes les propriétés de req.body dans newEtudiant
   const newEtudiant = { id: compteur, ...req.body };
   compteur = compteur + 1;
   etudiants.push(newEtudiant);
-  console.log("étudiant créé :");
+  console.log('étudiant créé :');
   console.log(newEtudiant);
   res.send(newEtudiant);
 });
@@ -410,21 +405,21 @@ Vous pouvez essayer d'implémenter ceci par vous-même avant de regarder la solu
 <br>
 
 ```js
-app.put("/etudiants/:id", (req, res) => {
+app.put('/etudiants/:id', (req, res) => {
   console.log(`### modifier l'étudiant d'id ${req.params.id}`);
   const etudiantIndex = etudiants.findIndex(
     (etudiant) => etudiant.id === req.params.id
   );
   // si aucun id trouvé, findIndex renvoie -1
   if (etudiantIndex != -1) {
-    console.log("étudiant modifié");
+    console.log('étudiant modifié');
     console.log(req.body);
     // mise à jour de l'étudiant dans le tableau
     etudiants[etudiantIndex] = req.body;
     // la réponse contient l'étudiant modifié
     res.send(etudiants[etudiantIndex]);
   } else {
-    console.log("étudiant non trouvé...");
+    console.log('étudiant non trouvé...');
     res.sendStatus(204);
   }
 });
@@ -442,7 +437,7 @@ Implémentons finalement le point de terminaison de suppression. Ce _endpoint_ d
 
 - essayer de trouver l'étudiant avec l'identifiant requis (paramètre de route) ;
 - si aucun étudiant n'est trouvé, envoyer une réponse d'erreur avec le code 404 (_Not Found_) ;
-- si un étudiant est trouvé, le supprimer du tableau et renvoyer un code 204 (_No Content_ : la requête a réussi mais il n'y a pas de contenu à renvoyer)
+- si un étudiant est trouvé, le supprimer du tableau et renvoyer un code 204 (*No Content* : la requête a réussi mais il n'y a pas de contenu à renvoyer)
 
 Vous pouvez essayer d'implémenter ceci par vous-même avant de regarder la solution (vous pourriez vouloir utiliser la méthode `.filter()` sur le tableau).
 
@@ -455,17 +450,17 @@ Vous pouvez essayer d'implémenter ceci par vous-même avant de regarder la solu
 <br>
 
 ```js
-app.delete("/etudiants/:id", (req, res) => {
+app.delete('/etudiants/:id', (req, res) => {
   console.log(`### supprimer l'étudiant d'id ${req.params.id}`);
   var etudiantIndex = etudiants.findIndex((et) => et.id === req.params.id);
   // si aucun id trouvé, findIndex renvoie -1
   if (etudiantIndex != -1) {
-    console.log("étudiant supprimé");
+    console.log('étudiant supprimé');
     // filter va renvoyer un nouveau tableau sans l'élément à supprimer
     etudiants = etudiants.filter((etudiant) => etudiant.id != req.params.id);
     res.sendStatus(204);
   } else {
-    console.log("étudiant non trouvé...");
+    console.log('étudiant non trouvé...');
     res.sendStatus(404);
   }
 });
@@ -482,9 +477,9 @@ Vérifiez la fonctionnalité ci-dessus en envoyant une requête `DELETE` à l'ai
 Il est temps d'ajouter la touche finale : la gestion des routes inexistantes. Ajoutez le code ci-dessous à vos routes existantes (et au-dessus de `app.listen()`) :
 
 ```js
-app.all("/", (req, res) => {
-  console.log("### route inconnue");
-  res.sendStatus("404");
+app.all('/', (req, res) => {
+  console.log('### route inconnue');
+  res.sendStatus('404');
 });
 ```
 
